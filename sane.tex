@@ -34,18 +34,105 @@
     \texttt{undefined} might be new to you. We'll explore these types in greater detail (and 
     see why they're very different) once we've dug deeper into the type system.
     
+    It's important to note that the line between primitive and object is not so clearly defined
+    in JavaScript as it is in other languages. You'll find that nearly any value in JavaScript can
+    \emph{behave} like an object while remaining primitive. Some people interpret this to mean that
+    \emph{every value} in JavaScript is an object in disguise, but this is not strictly the case.
+    We'll look at objects very closely soon enough.
+    
     \subsection{The \texttt{boolean} Datatype}
     If we restrict ourselves to the fundamentals of the type system, the \texttt{boolean} 
     datatype is as simple as can be. The ECMAScript standard explains it in a single sentence:
     \quote{The Boolean type represents a logical entity having two values, called \textbf{true}
     and \textbf{false}.}
     
-    In practice, you'll find that \texttt{true} and \texttt{false} are a bit like keywords which 
-    statically refer to the two possible boolean values (just like in most programming languages).
-    \marginpar{In ECMAScript, \texttt{true} and \texttt{false} are considered ``Boolean 
-    Literals.''}
+    In practice, \texttt{true} and \texttt{false} are keywords which  statically refer to the two 
+    possible boolean values (just as you find in most programming languages). \marginpar{In 
+    ECMAScript, \texttt{true} and \texttt{false} are considered ``Boolean Literals.''}
+    
+    Here are some examples of simple boolean values:
+    
+    \begin{verbatim}
+    true
+    
+    false
+    
+    \end{verbatim}
     
     \subsection{The \texttt{number} Datatype}
+    In JavaScript, there is no distinction between integral and floating-point numbers. Instead, 
+    we're given a single, unified type: \texttt{number}. A number is stored as a signed 64-bit float 
+    according to the IEEE 754 standard. This means, under the covers, the numbers you deal with in
+    JavaScript work the same as double-precision floats work in Java or C.
+    
+    It is worth noting that the simplicity you get by having a unified type for numbers comes at a 
+    cost of space-efficiency, performance and type-safety. On the otehr hand this might make some of 
+    your code a little cleaner as you no longer need no coerce integers to floats or worry about 
+    loss of precision in mixed-mode division. In general, you will find that JavaScript tends to 
+    sacrifice efficiency/performance/safety in small ways in order to gain in simplicity.
+    
+    A JavaScript number can be as large as $\pm 1.7976931348623157 \times 10^308$ or as small as
+    $\pm 5 \times 10^-324$. The range of integral values which can be stored in a JavaScript 
+    \texttt{number} is $\pm 2^53$.
+    
+    Numbers can be declared with number literals. Number literals can be base-10 or base-16 (using 
+    the traditional \texttt{0x} prefix). In some JavaScript implementations and contexts base-8 
+    number literals are also allowed by prefixing the number with a leading zero. Number literals 
+    can also be written with exponential notation by suffixing a lower or upper-case letter ``e'' 
+    followed by a positive or negative radix. \marginpar{Negative number literals can be made in the 
+    usual way, by prefixing the literal with a minus sign (i.e. ``-''). However, this isn't strictly 
+    part of the literal itself, but is an application of the unary negation operator to the 
+    literal.}
+    
+    Here are some examples of simple number values:
+    
+    \begin{verbatim}
+    7
+    
+    42
+    
+    -512
+    
+    7.62
+    
+    6.022141e23
+    
+    6.6260695729E-34
+    
+    0xf0
+    
+    0xff63ba
+    
+    \end{verbatim}
+    
+    \subsection{The \texttt{string} Datatype}
+    JavaScript provides \texttt{string} as a primitive type for dealing with text. All strings in 
+    JavaScript are encoded using UTF-16.
+    
+    You just learned that JavaScript unifies integers and floats under numbers at a cost of 
+    performance and for the sake of simplicity. With strings, JavaScript makes a similar 
+    simplification: there is no \texttt{char} type. That is to say: in JavaScript any single 
+    character is of type \texttt{string} with a string-length of 1. For dealing with blocks of 
+    text, the \texttt{string} datatype is the only datatype you need.
+    
+    String literals must be delimited by matching single or double quotes. In other words, strings 
+    may be delimited by either a matching start and end single quote or a matching start and end 
+    double quote but not mixed. The quote type which is not used to delimit may be used within the 
+    string literal without escaping.
+    
+    JavaScript \texttt{string}s support many of the escape sequences you're used to.
+    
+    \begin{tabular}{r|l}
+        Sequence & Result \\
+        \hline \hline
+        \texttt{\textbackslash{t}} & A horizontal tab. (\textbackslashu0009) \\
+        \texttt{\textbackslash{n}} & A newline. (\textbackslashu000A) \\
+        
+    \end{tabular}
+    
+    % TODO: do single and double quotes and unicode points.
+    
+    The full list of available escape sequences can be found in the appendix.
     
     
     
