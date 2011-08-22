@@ -18,16 +18,22 @@
     \part{The Language}
     \chapter{The Type System}
     \section{Overview}
+    The key to mastering JavaScript is a complete understanding of the type system. In this chapter
+    we will have a first look at each of the fundamental datatypes in JavaScript. We examine the 
+    type system before presenting any code examples, so this chapter may seem a little dry. Let the 
+    reader be ensured, however, that this approach is to provide a rich context for when we finally
+    do get to code.
+    
     JavaScript has a unique type system. In many ways it is Spartan. In many other ways 
     it is rich and expressive. In many, many other ways it is inconsistent and treacherous.
-    In this chapter, you will be introduced to the type system from each of these three 
+    Throuout this book, you will be introduced to the type system from each of these three 
     angles.
     
     If you, the reader, gain a complete understanding of these types, it will either result 
     in true enjoyment of a unique and powerful system, or well-informed hatred of a tangled 
     mess. Read on to find out which it will be.
     
-    \section{At a Fundamental Level}
+    \section{Datatypes at a Fundamental Level}
     At a fundamental level JavaScript has four basic datatypes. There are three primitive 
     types which should be familiar to you as a programmer: \texttt{boolean}, \texttt{number} 
     and \texttt{string}. The fourth datatype is \texttt{object}, which may be thought of as a 
@@ -182,9 +188,9 @@
     
     It is a remarkable feature of JavaScript that the \texttt{object} datatype also has a literal
     notation. The \texttt{object} is delimited by a pair of curly braces (i.e. ``\texttt{\{}'' and 
-    ``\texttt{\}}''). Within these braces, a named data property is specified by its name, followed
-    by a colon (i.e. \texttt{:}) followed by the property's data value. These named data properties
-    must be separated by commas.
+    ``\texttt{\}}''). Within these braces, any number of named data properties are specified by a 
+    name, followed by a colon (i.e. \texttt{:}) followed by the property's data value. These named 
+    data properties must be separated by commas.
     
     As an example, the following is an object literal with two properties: a property named 
     \texttt{foo} with the value of the \texttt{number} \texttt{42} and another property named 
@@ -195,11 +201,61 @@
     
     \end{verbatim}
     
-    The order of the properties within the object literal is insignificant.
+    The order of the properties within the object literal is insignificant because the properties
+    will be accessed by their names. For example, if this object were stored in the variable 
+    \texttt{x}, the \texttt{foo} property could be accessed via the familiar \emph{dot-notation}.
     
+    \begin{verbatim}
+    x.foo
     
+    \end{verbatim}
     
+    There is an additional \emph{bracket-notation} for accessing properties by a string for their 
+    name. The following example accesses the same property as the example above, but with the 
+    alternate notation.
     
+    \begin{verbatim}
+    x["foo"]
+    
+    \end{verbatim}
+    
+    At this point objects may feel significantly similar to a conventional dictionary collection;
+    string-keys map to values. This bracket-natation makes two big things possible. First: it allows 
+    you to access properties of an object dynamically, via a string variable. Later on, we'll loop
+    over the properties of an object by enumerating it's property names into a key variable, and 
+    then access the property values themselves by using that key variable with the bracket-natation.
+    
+    Secondly, the bracket-natation makes possible the accessing of properties which have names with 
+    symbols that are not valid in normal property names. For example, it is a single property named 
+    \texttt{prop.erty} cannot be accessed using the dot notation because the dot in its name will be
+    misinterpreted as accessing the \texttt{erty} subproperty of the \texttt{prop} property. Instead
+    we can access this value in the following manner.
+    
+    \begin{verbatim}
+    x["prop.erty"]
+    
+    \end{verbatim}
+    
+    As you can see, because the dot is safely enclosed within the string, JavaScript can see that it 
+    is the name of a single property.
+    
+    The \texttt{object literal} syntax also allows illegal symbols in property names if you write
+    the property name as a string. For example:
+    
+    \begin{verbatim}
+    { "name with spaces":"hello, world", "(){}[]":"another value" }
+    
+    \end{verbatim}
+    
+    You may notice that all of these bracket-natation examples use strings as keys, and may wonder
+    whether other dattypes may be used for property names. The answer is yes, sortof. We'll explore 
+    this when we take a much deeper look at the object datatype.
+    
+    One must make an important compatability note that the final named property should not be 
+    followed by a terminal comma. In seems harmless, and most browsers it will be tolerated, but 
+    some versions of Internet Explorer will tank your script when they encounter a final comma.
+    
+    \subsection{Built-in Objects}
     
     
     
