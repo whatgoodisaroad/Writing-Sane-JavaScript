@@ -1,5 +1,4 @@
 \documentclass[11pt,letter]{book}
-\usepackage[svgnames]{xcolor}
 
 \addtolength{\oddsidemargin}{-.875in}
 \addtolength{\evensidemargin}{-.875in}
@@ -13,6 +12,21 @@
     \maketitle
     
     \chapter{Introduction}
+    \begin{quote}
+        \emph{
+            ...an interesting mix ... capable of such beautiful dreams and such horrible nightmares.
+        } \\
+        -- Carl Sagan, \emph{Contact}
+    \end{quote}
+    
+    JavaScript is a truly remarkable language. It is ubiquitous: every computer with a browser 
+    installed comes with a full runtime. It's uncommonly powerful: its dynamic nature is more 
+    flexible than nearly any enterprise language, yet is used to do more and more amazing things.
+    It's unstoppable: since it's halfhearted genesis in 1995 it's never slowed it's growing 
+    popularity.
+    
+    Moreover, JavaScript is both beautiful and deeply flawed.
+    
     TODO: Title, History, Significance, Beauty, State, How to read
     
     \part{The Language}
@@ -26,7 +40,7 @@
     
     JavaScript has a unique type system. In many ways it is Spartan. In many other ways 
     it is rich and expressive. In many, many other ways it is inconsistent and treacherous.
-    Throuout this book, you will be introduced to the type system from each of these three 
+    Throughout this book, you will be introduced to the type system from each of these three 
     angles.
     
     If you, the reader, gain a complete understanding of these types, it will either result 
@@ -41,11 +55,12 @@
     fashion to what you're used to in other languages, some of \texttt{object}'s nuances 
     may be surprising.
     
-    Although I said there were only three, JavaScript actually defines two additional primitive 
-    types: \texttt{null} and \texttt{undefined}. \texttt{null} will probably look familiar to 
-    you from most any object-oriented language. \texttt{undefined} might be new to you. We'll 
-    explore these types in greater detail (and see why they're very different from the other 
-    primitives) once we've dug deeper into the type system. For now, just put them on your radar.
+    Although I said there were only three, JavaScript actually defines two additional types: which
+    are technically primitive also, \texttt{null} and \texttt{undefined}. \texttt{null} will 
+    probably look familiar to you from most any object-oriented language. \texttt{undefined} might 
+    be new to you. We'll explore these types in greater detail (and see why they're very different 
+    from the other primitives) once we've dug deeper into the type system. For now, just put them on 
+    your radar.
     
     It's important to note that the line between primitive and object is not so clearly defined
     in JavaScript as it is in other languages. You'll find that nearly any value in JavaScript can
@@ -65,15 +80,6 @@
     In practice, \texttt{true} and \texttt{false} are keywords which  statically refer to the two 
     possible boolean values (just as you find in most programming languages). These are considered 
     ``Boolean Literals.''
-    
-    Here are some examples of simple boolean values:
-    
-    \begin{verbatim}
-    true
-    
-    false
-    
-    \end{verbatim}
     
     \subsection{The \texttt{number} Datatype}
     In JavaScript, there is no distinction between integral and floating-point numbers. Instead, 
@@ -143,21 +149,19 @@
     JavaScript \texttt{string}s support many of the escape sequences you're used to.
     
     \vspace{10pt}
-    \small{
-        \begin{tabular}{c|l}
-            Sequence & Result \\
-            \hline
-            \texttt{\textbackslash{'}}  & A single quote. (\textbackslash{u0027}) \\
-            \texttt{\textbackslash{"}}  & A double quote. (\textbackslash{u0022}) \\
-            \texttt{\textbackslash\textbackslash} 
-                                        & A backslash. (\textbackslash{u005c}) \\
-            \texttt{\textbackslash{uXXXX}}
-                                        & The unicode character represented by the hexadecimal
-                                            digits XXXX. \\
-            \texttt{\textbackslash{t}}  & A horizontal tab. (\textbackslash{u0009}) \\
-            \texttt{\textbackslash{n}}  & A newline. (\textbackslash{u000a}) \\
-        \end{tabular}
-    }
+    \begin{tabular}{l|l}
+        Sequence & Result \\
+        \hline
+        \texttt{\textbackslash{'}}  & A single quote. (\textbackslash{u0027}) \\
+        \texttt{\textbackslash{"}}  & A double quote. (\textbackslash{u0022}) \\
+        \texttt{\textbackslash\textbackslash} 
+                                    & A backslash. (\textbackslash{u005c}) \\
+        \texttt{\textbackslash{u\#\#\#\#}}
+                                    & The unicode character represented by the hexadecimal
+                                        digits \#\#\#\#. \\
+        \texttt{\textbackslash{t}}  & A horizontal tab. (\textbackslash{u0009}) \\
+        \texttt{\textbackslash{n}}  & A newline. (\textbackslash{u000a}) \\
+    \end{tabular}
     \vspace{10pt}
     
     Several other escape sequences are available, but are not useful in most JavaScript scenarios. 
@@ -248,15 +252,17 @@
     \end{verbatim}
     
     You may notice that all of these bracket-natation examples use strings as keys, and may wonder
-    whether other dattypes may be used for property names. The answer is yes, sortof. We'll explore 
-    this when we take a much deeper look at the object datatype.
+    whether other datatypes may be used for property names. The answer is yes, sortof. We'll explore 
+    the use of non-strings as property indexers when we take a much deeper look at the object 
+    datatype.
     
     One must make an important compatability note that the final named property should not be 
     followed by a terminal comma. In seems harmless, and most browsers it will be tolerated, but 
     some versions of Internet Explorer will tank your script when they encounter a final comma.
     
     \subsection{Built-in Objects}
-    
+    It may seem odd that we discuss the four fundamental datatypes while not looking at arrays.
+    The reason for this is that the \emph{array datatype is implemented as an object}.
     
     
 \end{document}
