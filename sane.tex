@@ -8,45 +8,65 @@
 
 \usepackage[pdftex]{graphicx}
 
-\begin{document}
-    \begin{titlepage}
+%\setcounter{tocdepth}{1}
 
+\begin{document}
+    \frontmatter
+
+    \begin{titlepage}
         \begin{center}
             { \huge \bfseries Writing Sane JavaScript}\\[0.4cm]
-            
             \textsc{\Large A Comprehensive Introduction}\\[0.5cm]
-            
             \textsc{Wyatt Allen}
-            
-            \HRule \\[2.2cm]
-            
+            \HRule \\[1.2cm]
             \includegraphics[width=10cm]{socrates-hemlock}
-
             \vfill
-
         \end{center}
-
     \end{titlepage}
-        
-    \chapter{Introduction}
+    
+    \tableofcontents 
+    
+    \chapter*{Introduction}
     \begin{quote}
         \emph{
-            ...an interesting mix ... capable of such beautiful dreams and such horrible nightmares.
-        } \\
-        -- Carl Sagan, \emph{Contact}
+            ... An interesting mix ... capable of such beautiful dreams and such horrible 
+            nightmares.
+        }
     \end{quote}
+    \begin{flushright}
+        -- Carl Sagan, \emph{Contact}
+    \end{flushright}
+    \HRule \\[1.2cm]
     
     JavaScript is a truly remarkable language. It is ubiquitous: every computer with a browser 
     installed comes with a full runtime. It's uncommonly powerful: its dynamic nature is more 
     flexible than nearly any enterprise language, yet is used to do more and more amazing things.
-    It's unstoppable: since it's halfhearted genesis in 1995 it's never slowed it's growing 
+    It's unstoppable: since its halfhearted genesis in 1995 it's never slowed its growing 
     popularity.
     
     Moreover, JavaScript is both beautiful and deeply flawed. The above quote from Carl Sagan 
-    frequently visits me as I work on code, although it was originally written about an alien being 
-    musing on the human race.
+    frequently visits my thoughts as I work on code, although it was originally written about an 
+    alien being musing on the human race. There's no shortage of JavaScript code which is truly 
+    beautiful and elegant, frequently leaving the programmer with the impression of that 
+    ever-indefinable language quality: \emph{expressiveness}.
+    
+    But much more frequently, JavaScript will leave the programmer with a strong, sour impression of 
+    a desperate mess. Unreadable, unreliable, buggy and just plain bad code is rampant and difficult 
+    for the professional programmer to avoid encountering (or writing, sometimes).
+    
+    This bad code is not the fault of the programmers. It's a result of haphazard language design. 
+    For all of JavaScript's flexibility and power it can sometimes be maddeningly inconsistent and 
+    idiosyncratic, especially to the beginner. The aim of this book is to lend you, the reader 
+    complete knowledge of this unusual and rewarding language in order to overcome its obstacles. To 
+    wax just a bit cheesy, the aim of this book is to prevent the horrible nightmares, and promote 
+    the beautiful dreams.
+    
+    \section*{Writing Sane JavaScript}
+    
     
     TODO: Title, History, Significance, Beauty, State, How to read
+    
+    \mainmatter
     
     \part{The Language}
     \chapter{The Type System}
@@ -70,16 +90,14 @@
     At a fundamental level JavaScript has four basic datatypes. There are three primitive 
     types which should be familiar to you as a programmer: \texttt{boolean}, \texttt{number} 
     and \texttt{string}. The fourth datatype is \texttt{object}, which may be thought of as a 
-    composite type. Although the three primitives will behave largely in a similar 
-    fashion to what you're used to in other languages, some of \texttt{object}'s nuances 
-    may be surprising.
+    composite type. The three primitives will behave largely in a similar fashion to what you're 
+    used to in other languages, but some of \texttt{object}'s nuances may be surprising.
     
-    Although I said there were only three, JavaScript actually defines two additional types: which
-    are technically primitive also, \texttt{null} and \texttt{undefined}. \texttt{null} will 
-    probably look familiar to you from most any object-oriented language. \texttt{undefined} might 
-    be new to you. We'll explore these types in greater detail (and see why they're very different 
-    from the other primitives) once we've dug deeper into the type system. For now, just put them on 
-    your radar.
+    Although we say there are only three primitive datatypes, JavaScript technically defines two 
+    more: \texttt{null} and \texttt{undefined}. \texttt{null} will probably look familiar to you 
+    from most any object-oriented language. \texttt{undefined} might be new to you. We'll explore 
+    these types in greater detail (and see why they're very different from the other primitives) 
+    once we've dug deeper into the type system. For now, just put them on your radar.
     
     It's important to note that the line between primitive and object is not so clearly defined
     in JavaScript as it is in other languages. You'll find that nearly any value in JavaScript can
@@ -182,7 +200,7 @@
     
     \vspace{10pt}
     \begin{tabular}{l|l|l}
-        Sequence & Result \\
+        Sequence & Result & Code-Point \\
         \hline
         \texttt{\textbackslash{'}}  & A single quote. & \textbackslash{u0027} \\
         \texttt{\textbackslash{"}}  & A double quote. & \textbackslash{u0022} \\
@@ -277,7 +295,7 @@
     the object constructor. Par example:
     
     \begin{verbatim}
-    new Object();
+    new Object()
     \end{verbatim}
     
     The reader's inner object-oriented programmer may immediately identify \texttt{Object} (with the 
@@ -288,7 +306,7 @@
     \section{Built-in Objects}
     It may seem odd that we discuss the four fundamental datatypes while not looking at arrays.
     Often, arrays are their own separate, special datatype, like in C. However, in JavaScript the 
-    \emph{array datatype is implemented as an object}. More importantly, arrays are implemented are 
+    \emph{array datatype is implemented as an object}. More importantly, arrays are an example of 
     \emph{built-in objects}.
     
     Built-in-objects are from a set of classes which are provided for you by the JavaScript 
@@ -299,8 +317,9 @@
     
     \subsection{The \texttt{array} Datatype}
     
-    The array datatype is a good first example of a built-in-object. In JavaScript, arrays are 
-    one-dimensional, untyped (potentially heterogenous) and dynamically expanding. 
+    The array datatype is a good first example of a built-in-object because it is so useful. In 
+    JavaScript, arrays are one-dimensional, untyped (potentially heterogenous) and dynamically 
+    expanding. 
     
     We can create an empty array with the array literal syntax. The array is delimited by a pair of 
     open and close square braces (i.e. ``\texttt{[}'' and ``\texttt{]}'') and between them the 
@@ -345,7 +364,7 @@
     will then have a length of one). 
     
     Because of this ambiguity, most programmers avoid the variadic version of the constructor and 
-    instead use the object literal.
+    instead use the array literal.
     
     The elements of any array can be indexed using the same bracket notation for accessing 
     properties of objects. The only difference being that instead of passing the \texttt{string} of 
@@ -359,9 +378,31 @@
     foo[11]
     \end{verbatim}
     
+    \subsection{Other Built-in-Objects}
+    JavaScript provides a whole host of useful built-in types in addition \texttt{array}. For 
+    example, JavaScript provides a complete regular expression datatype called \texttt{RegExp} which
+    has a literal syntax of its own. JavaScript provieds a \texttt{Date} object for parsing and 
+    managing dates and times. The behemoth that is JavaScript's DOM API provides a huge amount of 
+    built-in objects to represent the various components of a webpage.
     
+    In the next chapter we'll learn about control structures and find that \emph{functions 
+    themselves} are buit-in objects. This is a big concept, and we'll devote a lot of pages to them,
+    but it means \texttt{function} is just another datatype. It can be stored to a variable or 
+    passed as an argument.
+    
+    For the sake of this preliminary look at the type system, we'll have to leave off a complete 
+    investigation of these built-in object datatypes for later chapters. Each type has its own 
+    unique nuances, niceties and annoyances, so we'll have to take our time in order to be complete.
+    
+    \chapter{Procedural Programming}
+    Now that we've got a blah blah blah
     
 \end{document}
+
+
+
+
+
 
 
 
