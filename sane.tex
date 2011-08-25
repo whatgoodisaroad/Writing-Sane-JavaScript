@@ -6,11 +6,28 @@
 \addtolength{\topmargin}{-.875in}
 \addtolength{\textheight}{1.75in}
 
+\usepackage[pdftex]{graphicx}
+
 \begin{document}
-    \title{Writing Sane JavaScript}
-    \author{Wyatt Allen}
-    \maketitle
-    
+    \begin{titlepage}
+
+        \begin{center}
+            { \huge \bfseries Writing Sane JavaScript}\\[0.4cm]
+            
+            \textsc{\Large A Comprehensive Introduction}\\[0.5cm]
+            
+            \textsc{Wyatt Allen}
+            
+            \HRule \\[2.2cm]
+            
+            \includegraphics[width=10cm]{socrates-hemlock}
+
+            \vfill
+
+        \end{center}
+
+    \end{titlepage}
+        
     \chapter{Introduction}
     \begin{quote}
         \emph{
@@ -25,7 +42,9 @@
     It's unstoppable: since it's halfhearted genesis in 1995 it's never slowed it's growing 
     popularity.
     
-    Moreover, JavaScript is both beautiful and deeply flawed.
+    Moreover, JavaScript is both beautiful and deeply flawed. The above quote from Carl Sagan 
+    frequently visits me as I work on code, although it was originally written about an alien being 
+    musing on the human race.
     
     TODO: Title, History, Significance, Beauty, State, How to read
     
@@ -100,35 +119,38 @@
     $\pm 5 \times 10^{-324}$. The range of integral values which can be stored in a JavaScript 
     \texttt{number} is $\pm 2^{53}$.
     
-    Numbers can be declared with number literals. Number literals can be base-10 or base-16 (using 
-    the traditional \texttt{0x} prefix). In some implementations base-8 number literals are allowed 
-    when the number is prefixed with a leading zero. Number literals can also be written with 
-    exponential notation by suffixing a lower or upper-case letter ``e'' followed by a positive or 
-    negative radix. 
+    Numbers can be declared with number literals. Number literals are usually decimal (base-10) but 
+    can also be hexadecimal (base-16) using the traditional \texttt{0x} prefix. (In some 
+    implementations octal (base-8) number literals are allowed when the number is prefixed with a 
+    leading zero, although this is not standard.)
+    
+    \begin{verbatim}
+        7
+    
+        42
+        
+        7.62
+        
+        0xf0
+    
+        0xff63ba
+    \end{verbatim}
+    
+    Number literals can also be written in exponential notation by suffixing a lower or upper-case 
+    letter ``e'' followed by a positive or negative radix. 
+    
+    \begin{verbatim}
+    6.022141e23
+    
+    6.6260695729E-34
+    \end{verbatim}
     
     Negative number literals can be made in the usual way, by prefixing the literal with a minus 
     sign. However, this isn't actually part of the literal itself, but is an application of the 
     unary negation operator to the literal.
     
-    Here are some examples of simple number values:
-    
     \begin{verbatim}
-    7
-    
-    42
-    
-    -512
-    
-    7.62
-    
-    6.022141e23
-    
-    6.6260695729E-34
-    
-    0xf0
-    
-    0xff63ba
-    
+    -532
     \end{verbatim}
     
     \subsection{The \texttt{string} Datatype}
@@ -138,36 +160,13 @@
     You just learned that JavaScript unifies integers and floats under numbers at a cost of 
     performance and for the sake of simplicity. With strings, JavaScript makes a similar 
     simplification: there is no \texttt{char} type. That is to say: in JavaScript any single 
-    character is of type \texttt{string} with a string-length of 1. For dealing with  
+    character is of type \texttt{string} with a string-length of 1. As a result, when dealing with  
     text, the \texttt{string} datatype is the only datatype you need.
     
     String literals must be delimited by matching single or double quotes. In other words, strings 
     may be delimited by either a matching start and end single quote or a matching start and end 
     double quote but not mixed. The quote type which is not used to delimit may be used within the 
     string literal without escaping.
-    
-    JavaScript \texttt{string}s support many of the escape sequences you're used to.
-    
-    \vspace{10pt}
-    \begin{tabular}{l|l}
-        Sequence & Result \\
-        \hline
-        \texttt{\textbackslash{'}}  & A single quote. (\textbackslash{u0027}) \\
-        \texttt{\textbackslash{"}}  & A double quote. (\textbackslash{u0022}) \\
-        \texttt{\textbackslash\textbackslash} 
-                                    & A backslash. (\textbackslash{u005c}) \\
-        \texttt{\textbackslash{u\#\#\#\#}}
-                                    & The unicode character represented by the hexadecimal
-                                        digits \#\#\#\#. \\
-        \texttt{\textbackslash{t}}  & A horizontal tab. (\textbackslash{u0009}) \\
-        \texttt{\textbackslash{n}}  & A newline. (\textbackslash{u000a}) \\
-    \end{tabular}
-    \vspace{10pt}
-    
-    Several other escape sequences are available, but are not useful in most JavaScript scenarios. 
-    A full list of available escape sequences can be found in the appendix.
-    
-    Here are some examples of simple string values:
     
     \begin{verbatim}
     "Hello, world."
@@ -176,12 +175,34 @@
     
     "This apostrophe needn't be escaped."
     
+    'Double "quotes inside single" quotes.'
+    \end{verbatim}
+    
+    JavaScript \texttt{string}s support many of the escape sequences you're used to.
+    
+    \vspace{10pt}
+    \begin{tabular}{l|l|l}
+        Sequence & Result \\
+        \hline
+        \texttt{\textbackslash{'}}  & A single quote. & \textbackslash{u0027} \\
+        \texttt{\textbackslash{"}}  & A double quote. & \textbackslash{u0022} \\
+        \texttt{\textbackslash\textbackslash} 
+                                    & A backslash. & \textbackslash{u005c} \\
+        \texttt{\textbackslash{u\#\#\#\#}}
+                                    & The unicode character represented by the hexadecimal
+                                        digits \#\#\#\#. & \\
+        \texttt{\textbackslash{t}}  & A horizontal tab. & \textbackslash{u0009} \\
+        \texttt{\textbackslash{n}}  & A newline. & \textbackslash{u000a} \\
+    \end{tabular}
+    \vspace{10pt}
+    
+    Several other escape sequences are available, but are not useful in most JavaScript scenarios. 
+    A full list of available escape sequences can be found in the appendix.
+    
+    \begin{verbatim}
     'This apostrophe\'s escape is necessary.'
     
-    'Double "quotes in single" quotes.'
-    
     "Text\n spanning\n multiple\n lines"
-    
     \end{verbatim}
     
     \subsection{The \texttt{object} Datatype}
@@ -202,7 +223,6 @@
     
     \begin{verbatim}
     { foo:42, bar:"hello, world" }
-    
     \end{verbatim}
     
     The order of the properties within the object literal is insignificant because the properties
@@ -211,7 +231,6 @@
     
     \begin{verbatim}
     x.foo
-    
     \end{verbatim}
     
     There is an additional \emph{bracket-notation} for accessing properties by a string for their 
@@ -220,16 +239,15 @@
     
     \begin{verbatim}
     x["foo"]
-    
     \end{verbatim}
     
     At this point objects may feel significantly similar to a conventional dictionary collection;
-    string-keys map to values. This bracket-natation makes two big things possible. First: it allows 
+    string-keys map to values. This bracket-notation makes two big things possible. First: it allows 
     you to access properties of an object dynamically, via a string variable. Later on, we'll loop
     over the properties of an object by enumerating it's property names into a key variable, and 
-    then access the property values themselves by using that key variable with the bracket-natation.
+    then access the property values themselves by using that key variable with the bracket-notation.
     
-    Secondly, the bracket-natation makes possible the accessing of properties which have names with 
+    Secondly, the bracket-notation makes possible the accessing of properties which have names with 
     symbols that are not valid in normal property names. For example, it is a single property named 
     \texttt{prop.erty} cannot be accessed using the dot notation because the dot in its name will be
     misinterpreted as accessing the \texttt{erty} subproperty of the \texttt{prop} property. Instead
@@ -237,7 +255,6 @@
     
     \begin{verbatim}
     x["prop.erty"]
-    
     \end{verbatim}
     
     As you can see, because the dot is safely enclosed within the string, JavaScript can see that it 
@@ -248,24 +265,108 @@
     
     \begin{verbatim}
     { "name with spaces":"hello, world", "(){}[]":"another value" }
-    
     \end{verbatim}
     
-    You may notice that all of these bracket-natation examples use strings as keys, and may wonder
+    You may notice that all of these bracket-notation examples use strings as keys, and may wonder
     whether other datatypes may be used for property names. The answer is yes, sortof. We'll explore 
     the use of non-strings as property indexers when we take a much deeper look at the object 
     datatype.
     
-    One must make an important compatability note that the final named property should not be 
-    followed by a terminal comma. In seems harmless, and most browsers it will be tolerated, but 
-    some versions of Internet Explorer will tank your script when they encounter a final comma.
+    So far we've dealt with objects using the object literal syntax, but all objects can also be 
+    created using another syntax which may be familiar to you: using the \texttt{new} operator and 
+    the object constructor. Par example:
     
-    \subsection{Built-in Objects}
+    \begin{verbatim}
+    new Object();
+    \end{verbatim}
+    
+    The reader's inner object-oriented programmer may immediately identify \texttt{Object} (with the 
+    initial capital) as the \emph{class} of objects, but this is wrong. When we explore 
+    object-orientation in later chapters we'll see that \texttt{Object} is not the \emph{class}, but 
+    merely the \emph{constructor} for the \texttt{object} datatype.
+    
+    \section{Built-in Objects}
     It may seem odd that we discuss the four fundamental datatypes while not looking at arrays.
-    The reason for this is that the \emph{array datatype is implemented as an object}.
+    Often, arrays are their own separate, special datatype, like in C. However, in JavaScript the 
+    \emph{array datatype is implemented as an object}. More importantly, arrays are implemented are 
+    \emph{built-in objects}.
+    
+    Built-in-objects are from a set of classes which are provided for you by the JavaScript 
+    implementation. Often, these objects are implemented with \emph{native code} and are part of 
+    the JavaScript runtime itself. (Put differently, they are JavaScript objects which are not 
+    written in JavaScript.) Consequently, they will behave a little differently from the objects 
+    that you create.
+    
+    \subsection{The \texttt{array} Datatype}
+    
+    The array datatype is a good first example of a built-in-object. In JavaScript, arrays are 
+    one-dimensional, untyped (potentially heterogenous) and dynamically expanding. 
+    
+    We can create an empty array with the array literal syntax. The array is delimited by a pair of 
+    open and close square braces (i.e. ``\texttt{[}'' and ``\texttt{]}'') and between them the 
+    elements are separated by commas.
+    
+    \begin{verbatim}
+    [ "element 1", "element 2", "element 3" ]
+    \end{verbatim}
+    
+    Because arrays are really a kind of object, we can also build one with the constructor synatx:
+    
+    \begin{verbatim}
+    new Array()
+    \end{verbatim}
+    
+    There are two additionnal ways to call the array constructor. It can be called with a single 
+    \texttt{number} argument to tell the runtime how many spaces to pre-allocate. Although a 
+    pre-allocated array will have the specified length, it will otherwise behave like an empty array
+    as it does not have any elements for the allocated spaces.
+    
+    \begin{verbatim}
+    new Array(5)
+    
+    new Array(12)
+    \end{verbatim}
+    
+    Aa another way, the \texttt{Array} constructor can be called as a variadic function with all of 
+    the elements with which pre-populate the array.
+    
+    \begin{verbatim}
+    new Array("element 1", "element 2", "element 3");
+    
+    new Array(1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987);
+    \end{verbatim}
+    
+    You may notice that there is a potential ambiguity between these two argument patterns: if the
+    \texttt{array} constructor is called as a variadic with only a single argument, will the
+    constructor treat that argument as only element or as the given length of the new array? The 
+    resolution to this issue is that the constructor tests whether that single argument is an 
+    integral \texttt{number}, in which case it will be used as the array's new length but not as its 
+    element. In all other cases, that argument will be used as the lone element of the array (which 
+    will then have a length of one). 
+    
+    Because of this ambiguity, most programmers avoid the variadic version of the constructor and 
+    instead use the object literal.
+    
+    The elements of any array can be indexed using the same bracket notation for accessing 
+    properties of objects. The only difference being that instead of passing the \texttt{string} of 
+    the name of the property, we pass the inegral \texttt{number} of the element's zero-based index.
+    For example, the following illustrates how to access the first and the twelfth element of an 
+    array named \texttt{foo}.
+    
+    \begin{verbatim}
+    foo[0]
+    
+    foo[11]
+    \end{verbatim}
+    
     
     
 \end{document}
+
+
+
+
+
 
 
 
