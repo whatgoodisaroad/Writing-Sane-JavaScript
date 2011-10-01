@@ -7,6 +7,7 @@
 \addtolength{\textheight}{1.75in}
 
 \usepackage[pdftex]{graphicx}
+\usepackage[svgnames]{xcolor}
 
 \begin{document}
     \frontmatter
@@ -24,7 +25,7 @@
     
     \tableofcontents 
     
-    \chapter{Introduction}
+    \chapter{Preface}
     \begin{quote}
         \emph{
             ... An interesting mix ... capable of such beautiful dreams and such horrible 
@@ -32,7 +33,18 @@
         }
     \end{quote}
     \begin{flushright}
-        -- Carl Sagan, \emph{Contact}
+        --- Carl Sagan, \emph{Contact}
+    \end{flushright}
+    \HRule \\[1.2cm]
+	
+	\begin{quote}
+        \emph{
+            More good code has been written in languages denounced as bad than in languages 
+			proclaimed wonderful --- much more.
+        }
+    \end{quote}
+    \begin{flushright}
+        --- Bjarne Stroustrup, \emph{The Design and Evolution of C++}
     \end{flushright}
     \HRule \\[1.2cm]
     
@@ -56,15 +68,16 @@
     language design. For all of JavaScript's flexibility and power it can sometimes be maddeningly 
     inconsistent and idiosyncratic, especially to the beginner. The aim of this book is to lend you, 
     the reader complete knowledge of this unusual and rewarding language in order to overcome its 
-    obstacles. To wax just a bit starry-eyed, the aim of this book is to prevent the horrible 
-    nightmares, and promote the beautiful dreams.
+    obstacles. To borrow from Sagan --- and wax just a bit starry-eyed --- the aim of this 
+    book is to prevent the horrible nightmares, and promote the beautiful dreams.
     
     \section*{Pedagogy}
     Learning to master JavaScript is an unusual challenge when compared to the task of learning 
     other programming languages. No small part of this challenge is the fact that it's a very easy 
-    language to pick up and start using in a basic way without formally learning it. Just about any 
-    programmer with an acquaintance with the C family of languages could hack together a functioning
-    event handler or popup in a webpage by trial and error or a handful of Google searches.
+    language to pick up and start using in a basic way without having formally learned it. Just 
+    about any programmer with an acquaintance with the C family of languages could hack together a 
+    functioning event handler or popup in a webpage by trial and error or a handful of Google 
+    searches.
     
     Because JavaScript is so easy to mess with, and is often used as a afterthought in webpage 
     design, many treat it like a toy language and percieve formally learing it to be overkill. 
@@ -75,22 +88,23 @@
     
     This book was written to give you, the reader a proper, formal understanding of this capable 
     language. For this reason, we do not begin with the easy aspects of the language; we will start 
-    by delving into the language's hard parts. At no point in this book will we treat JavaScript as
-    a toy language. 
+    by delving into the language's hard parts. It's not overkill. And at no point in this book will 
+    we treat JavaScript as a toy language. 
     
     Many other JavaScript books will begin with the easier, more casual aspects of the language, 
-    forcing readers to make a paradigm-shift partway through before they can really, formally learn.
-    Other books focus exclusively on the good parts of the language, advising readers to avoid using 
-    (or even considering) the poorly-designed parts which can cause trouble. Still other books are 
-    dry and meticulous tomes which, while useful reference volumes, afford little to the learner.
+    forcing readers to make a paradigm-shift partway through before they can really, formally learn 
+    it. Other books focus exclusively on the ``good parts'' of the language, advising readers to 
+    avoid using (or even considering) the poorly-designed parts which can cause trouble. Still other 
+    books are dry and meticulous tomes which, while useful reference volumes, afford little to the 
+    learner.
     
-    In this book, we will make an unflinching, complete tour of JavaScript. After reading, you, the 
-    reader will be able to say that you know or grok the language, warts and all. Moreover, 
-    the power is given to you the reader throughout these chapters to judge the language. I will 
-    always endeavor to advise you on the common snags, but, as a programmer, your judgement is 
-    respected and you choose what to make of it all.
+    In this book, we will make an unflinching, complete tour through JavaScript --- from start to 
+    finish. After reading, you, the reader will be able to say that you know or grok the language, 
+    warts and all. Moreover, the power is given to you the reader throughout these chapters to judge 
+    the language. I will always endeavor to advise you on the common snags, but, as a programmer, 
+    your judgement is respected and you choose what to make of it all.
     
-    \section*{Who Is this Book For?}
+    \section*{Who is this Book For?}
     As stated above, in this book, the power is given to you the reader \emph{as a programmer}. 
     Consequently, you will need to be able to program. This is not an introduction to programming 
     via JavaScript, but a comprehensive introduction to JavaScript programming. No prior 
@@ -103,11 +117,10 @@
     Functional Progamming (FP) will be helpful for understanding much of JavaScript, but is not 
     necessary.
     
+    \chapter{Introduction}
+    
     \section*{History}
-    
-    
-    
-    
+    An essential part of understanding JavaScript and its significance is its unusual history.
     
     
     
@@ -125,12 +138,13 @@
     
     \part{The Language}
     \chapter{The Type System}
-    \section{Overview}
-    The key to mastering JavaScript is a complete understanding of the type system. In this chapter
-    we will have a first look at each of the fundamental datatypes in JavaScript. We examine the 
-    type system before presenting any code examples, so this chapter may seem a little dry. Let the 
-    reader be ensured, however, that this approach is to provide a rich context for when we finally
-    do get to code.
+	
+	\section{Overview}
+    The first hurdle in mastering JavaScript is a complete understanding of the type system. In this 
+    chapter we will have a first look at each of the fundamental datatypes in JavaScript. We examine 
+    the type system before presenting any code examples, so this chapter may seem a little dry. Let 
+    the reader be ensured, however, that this approach is to provide a rich context for when we 
+    finally do get to code.
     
     JavaScript has a unique type system. In many ways it is Spartan. In many other ways 
     it is rich and expressive. In many, many other ways it is inconsistent and treacherous.
@@ -157,8 +171,8 @@
     It's important to note that the line between primitive and object is not so clearly defined
     in JavaScript as it is in other languages. You'll find that nearly any value in JavaScript can
     \emph{behave} like an object while remaining primitive. Some people interpret this to mean that
-    \emph{every value} in JavaScript is an object in disguise, but this is not strictly the case.
-    We'll look at objects very closely soon enough.
+    \emph{every value} in JavaScript is an object in disguise, but this is not the truth. We'll look 
+    at objects very closely soon enough.
     
     \subsection{The \texttt{boolean} Datatype}
     If we restrict ourselves to the fundamentals of the type system, the \texttt{boolean} 
@@ -169,7 +183,7 @@
         and \textbf{false}.
     \end{quote}
     
-    In practice, \texttt{true} and \texttt{false} are keywords which  statically refer to the two 
+    In practice, \texttt{true} and \texttt{false} are keywords which statically refer to the two 
     possible boolean values (just as you find in most programming languages). These are considered 
     ``Boolean Literals.''
     
@@ -183,7 +197,7 @@
     
     It is worth noting that the simplicity you get by having a unified type for numbers comes at 
     a cost of space-efficiency, performance and type-safety. On the other hand this will make 
-    some of your code cleaner because you will no-longer need no coerce integers to floats or 
+    some of your code cleaner because you no-longer need to coerce integers to floats or 
     worry about loss of precision in mixed-mode division. In general, we will find that 
     JavaScript tends to sacrifice efficiency/performance/safety in small ways in order to gain 
     in simplicity.
@@ -228,7 +242,9 @@
     
     \subsection{The \texttt{string} Datatype}
     JavaScript provides \texttt{string} as a primitive type for dealing with text. All strings in 
-    JavaScript are encoded using UTF-16.
+    JavaScript are encoded using either UTF-16 or UCS-2. (UCS-2 is a text encoding form which is 
+    extremely similar to UTF-16, but doesn't understand surrogate pair code points, which is almost
+    never a problem).
     
     You just learned that JavaScript unifies integers and floats under numbers at a cost of 
     performance and for the sake of simplicity. With strings, JavaScript makes a similar 
@@ -315,35 +331,50 @@
     \end{verbatim}
     
     At this point objects may feel significantly similar to a conventional dictionary collection;
-    string-keys map to values. This bracket-notation makes two big things possible. First: it allows 
-    you to access properties of an object dynamically, via a string variable. Later on, we'll loop
-    over the properties of an object by enumerating it's property names into a key variable, and 
-    then access the property values themselves by using that key variable with the bracket-notation.
+    string-keys map to values. This bracket-notation makes two big things possible. 
     
-    Secondly, the bracket-notation makes possible the accessing of properties which have names with 
-    symbols that are not valid in normal property names. For example, it is a single property named 
-    \texttt{prop.erty} cannot be accessed using the dot notation because the dot in its name will be
-    misinterpreted as accessing the \texttt{erty} subproperty of the \texttt{prop} property. Instead
-    we can access this value in the following manner.
+    \begin{enumerate}
+        \item It allows you to access properties of an object dynamically, via a string variable. 
+        Later on, we'll loop over the properties of an object by enumerating it's property names 
+        into a key variable, and then access the property values themselves by using that key 
+        variable with the bracket-notation.
     
-    \begin{verbatim}
-    x["prop.erty"]
-    \end{verbatim}
+        \item The bracket-notation makes possible the accessing of properties which have names with 
+        symbols that are not valid in normal property names. 
+        
+        For example, a single property named \texttt{prop.erty} cannot be accessed using the dot 
+        notation because the dot in its name will be misinterpreted as accessing the \texttt{erty} 
+        subproperty of the \texttt{prop} property. Instead we can access this value in the following 
+        manner.
+        
+        \begin{verbatim}
+        x["prop.erty"]
+        \end{verbatim}
+        
+        As you can see, because the dot is safely enclosed within the string, JavaScript can see 
+        that it is the name of a single property.
+        
+        The \texttt{object literal} syntax also allows illegal symbols in property names if you 
+        write the property name as a string. For example:
+        
+        \begin{verbatim}
+        { "name with spaces":"hello, world", "(){}[]":"another value" }
+        \end{verbatim}
+        
+        You may notice that all of these bracket-notation examples use \texttt{string}s as keys, and 
+        you may wonder whether other datatypes --- such as \texttt{number}s --- may also be used for 
+        property names. In fact, any datatype can be used to specify a property, but its value will 
+        be converted to a \texttt{string} before the object is searched for a matching name.
+        
+        This means that the following two lines refer to the same property of the \texttt{object} 
+        \texttt{foo} --- even though the datatypes in the brackets are completely different.
+        
+        \begin{verbatim}
+        foo["42"]
+        foo[42]
+        \end{verbatim}
     
-    As you can see, because the dot is safely enclosed within the string, JavaScript can see that it 
-    is the name of a single property.
-    
-    The \texttt{object literal} syntax also allows illegal symbols in property names if you write
-    the property name as a string. For example:
-    
-    \begin{verbatim}
-    { "name with spaces":"hello, world", "(){}[]":"another value" }
-    \end{verbatim}
-    
-    You may notice that all of these bracket-notation examples use strings as keys, and may wonder
-    whether other datatypes may be used for property names. The answer is yes, sortof. We'll explore 
-    the use of non-strings as property indexers when we take a much deeper look at the object 
-    datatype.
+    \end{enumerate}
     
     So far we've dealt with objects using the object literal syntax, but all objects can also be 
     created using another syntax which may be familiar to you: using the \texttt{new} operator and 
@@ -354,17 +385,17 @@
     \end{verbatim}
     
     The reader's inner object-oriented programmer may immediately identify \texttt{Object} (with the 
-    initial capital) as the \emph{class} of objects, but this is wrong. When we explore 
+    initial capital) as the \emph{class} of objects, but this is not the case. When we explore 
     object-orientation in later chapters we'll see that \texttt{Object} is not the \emph{class}, but 
     merely the \emph{constructor} for the \texttt{object} datatype.
     
     \section{Built-in Objects}
     It may seem odd that we discuss the four fundamental datatypes while not looking at arrays.
     Often, arrays are their own separate, special datatype, like in C. However, in JavaScript the 
-    \emph{array datatype is implemented as an object}. More importantly, arrays are an example of 
-    \emph{built-in objects}.
+    \emph{array datatype is implemented as an object}. More importantly, arrays are an example of a
+    \emph{built-in object}.
     
-    Built-in-objects are from a set of classes which are provided for you by the JavaScript 
+    Built-in objects come from a set of classes which are provided for you by the JavaScript 
     implementation. Often, these objects are implemented with \emph{native code} and are part of 
     the JavaScript runtime itself. (Put differently, they are JavaScript objects which are not 
     written in JavaScript.) Consequently, they will behave a little differently from the objects 
@@ -401,8 +432,8 @@
     new Array(12)
     \end{verbatim}
     
-    Aa another way, the \texttt{Array} constructor can be called as a variadic function with all of 
-    the elements with which pre-populate the array.
+    The \texttt{Array} constructor can also be called as a variadic function accepting as arguments
+    all of the elements with which pre-populate the array.
     
     \begin{verbatim}
     new Array("element 1", "element 2", "element 3");
@@ -411,15 +442,16 @@
     \end{verbatim}
     
     You may notice that there is a potential ambiguity between these two argument patterns: if the
-    \texttt{array} constructor is called as a variadic with only a single argument, will the
-    constructor treat that argument as only element or as the given length of the new array? The 
-    resolution to this issue is that the constructor tests whether that single argument is an 
-    integral \texttt{number}, in which case it will be used as the array's new length but not as its 
-    element. In all other cases, that argument will be used as the lone element of the array (which 
-    will then have a length of one). 
+    \texttt{array} constructor is called as a variadic with only a single argument. Will the
+    constructor treat that argument as only element or as the given length of the new array? 
     
-    Because of this ambiguity, most programmers avoid the variadic version of the constructor and 
-    instead use the array literal.
+    The resolution to this issue is that the constructor tests whether that single argument is an 
+    integer, in which case it will be used as the array's new length but not as its element. In all 
+    other cases, (i.e. when the lone argument is not an integer) the argument will be used as the 
+    lone element of the array (which will then have a length of one). 
+    
+    Because of this, most programmers avoid the variadic version of the constructor and instead use 
+    the array literal, which achieves the same effect with less characters and no ambiguity.
     
     The elements of any array can be indexed using the same bracket notation for accessing 
     properties of objects. The only difference being that instead of passing the \texttt{string} of 
@@ -437,8 +469,8 @@
     JavaScript provides a whole host of useful built-in types in addition \texttt{array}. For 
     example, JavaScript provides a complete regular expression datatype called \texttt{RegExp} which
     has a literal syntax of its own. JavaScript provieds a \texttt{Date} object for parsing and 
-    managing dates and times. The behemoth that is JavaScript's DOM API provides a huge amount of 
-    built-in objects to represent the various components of a webpage.
+    managing dates and times. JavaScript's DOM API (a Behemoth) provides a huge amount of built-in 
+    objects to represent the various components of a webpage.
     
     In the next chapter we'll learn about control structures and find that \emph{functions 
     themselves} are buit-in objects. This is a big concept, and we'll devote a lot of pages to them,
@@ -450,7 +482,127 @@
     unique nuances, niceties and annoyances, so we'll have to take our time in order to be complete.
     
     \chapter{Procedural Programming}
-    Now that we've got a blah blah blah
+    After looking at JavaScript's basic types, now it's time to use them as building-blocks in 
+    procedural coding. We'll look at managing variables, using control structures and performing 
+    calculations. This foundation will segue into the use and writing of functions.
+    
+    \section{Core Syntax}
+    JavaScript is syntactically based on the C family of languages. For example, statements are 
+    terminated by semicolons, whitespace is generally ignored and statement blocks are delimited by 
+    open and close curly braces. These features --- as well as variable naming rules, code comments, 
+    and the much of the operator collection --- are all borrowed from the syntax of C.
+    
+    \subsection{Comments}
+    In particular, comments are written in two possible ways.
+    
+    \begin{verbatim}
+    /* This
+        is a
+            multi-line
+                comment
+    */
+     
+    // This is a single-line comment.
+    \end{verbatim}
+    
+    The Javadoc comment style is used frequently in JavaScript to document functions, but is not 
+    strictly part of the language. Moreover, it's a subset of the existing comment syntax. 
+    Similarly, C\#-style XML comments are sometimes used in conjunction with Microsoft tools.
+    
+    \subsection{Optional Semicolons}
+    Unlike C, the use of semicolons to terminate statements in JavaScript is optional. This language 
+    feature was initially concieved as a way to make the language more user-friendly or prettier. 
+    However, in combination with whitespace-insensitivity, it can lead to ambiguities, especially 
+    when placing multiple statements on the same line.
+    
+    For these reasons (and more, as we'll discover) it's considered best-practice to always 
+    terminate statements with semicolons just as you would when writing in C or Java.
+    
+    \section{Declaring and using Variables}
+    The most basic way to declare a variable in JavaScript is with the \texttt{var} keyword. As an 
+    example, a variable named \texttt{myVar} can be declared in the following way.
+    
+    \begin{verbatim}
+    var myVar;
+    \end{verbatim}
+    
+    Even though the \texttt{myVar} is properly declared, it does not have a type. This declaration 
+    syntax may look a bit like a declaration from a statically-typed language like C or Java, except
+    that, in this case, the keyword \texttt{var} is used in place of the type.
+    
+    This is because JavaScript uses a \emph{dynamic type system} --- meaning, a variable can house a 
+    value of \emph{any datatype}. The same variable that stores a \texttt{number} could be used to 
+    store an \texttt{object} later on. A variable that stores a \texttt{boolean}, could be used to 
+    store a \texttt{string} of any length!
+    
+    \subsection{\texttt{undefined}: The Universal Default Value}
+    
+    As a consequence of the dynamic system, when a variable has been declared but has not been 
+    assigned, it is automatically given a default value which spans \emph{all types}: 
+    \texttt{undefined}.
+    
+    In statically-typed languages, types usually have specific default values of their own. For 
+    example (depending on the compiler and architecture) an \texttt{int} in C may be automatically
+    given a default value of zero (or perhaps the garbage value of whatever data was located at its 
+    memory space in the stack). But a \texttt{boolean} in Java may be automatically given the value 
+    \texttt{true} or \texttt{false}.
+    
+    In JavaScript, since our variables do not have datatypes when they're declared, they must be 
+    automatically assigned a default value which itself does not have a type. As stated in the 
+    chapter on the Type System, \texttt{undefined} is technically a primitive datatype of its own
+    in order to keep it seperate form all the others. 
+    
+    What's more, \texttt{undefined} is what's sometimes called a \emph{Unit Type} in Computer Type 
+    Theory, meaning a type that can only house one value. Indeed the value \texttt{undefined} 
+    \emph{is its own datatype}, and the datatype \texttt{undefined} \emph{is its only possible 
+    value}.
+    
+    This may be confusing, but the point to take away from this is that when a variable's value is
+    equal to \texttt{undefined}, you should interpret that it was never assigned a value. (Unless, 
+    for some reason, it was explicitly defined the value \texttt{undefined}.)
+    
+    We'll learn more about \texttt{undefined} (and how its subtly different from \texttt{null}) as 
+    we progress through the language.
+    
+    \subsection{Initialization Syntax}
+    To give variables initial values (and to avoid \texttt{undefined}) you can specify a value in 
+    stride with declaration.
+    
+    \begin{verbatim}
+    var theAnswer = 42;
+    \end{verbatim}
+    
+    Several variables can be declared and initialized at once using the \emph{declaration list 
+    syntax}. Following the \texttt{var} keyword, variable names can be written together, seperated 
+    by commas, with optional initial values.
+    
+    \begin{verbatim}
+    var 
+        message = "Welcome",
+        prompt = "Please enter your name",
+        givenName;
+    \end{verbatim}
+    
+    \subsection{Variable Deletion}
+    JavaScript provides a unary \texttt{delete} operator which can remove a variable and free its 
+    memory space --- effectively reversing the effect of declaring it.
+    
+    \begin{verbatim}
+    delete giantDataBuffer;
+    \end{verbatim}
+    
+    Most programmers don't find much use for the \texttt{delete} operator because the releasing of 
+    memory resources is usually handled automatically by scoping mechanisms in functions. However, 
+    larger JavaScript applications can sometimes develop memory leaks and manual deletion become 
+    necessary. \texttt{delete} can also be useful to overcome browser defects that generate memory 
+    leaks in the DOM API (such as Internet Explorer in some cases).
+    
+    
+    
+    
+    
+    
+    
     
 \end{document}
 
