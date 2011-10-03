@@ -8,6 +8,7 @@
 
 \usepackage[pdftex]{graphicx}
 \usepackage[svgnames]{xcolor}
+\usepackage{tipa}
 
 \begin{document}
     \frontmatter
@@ -18,7 +19,7 @@
             \textsc{\Large A Comprehensive Introduction}\\[0.5cm]
             \textsc{Wyatt Allen}
             \HRule \\[1.2cm]
-            \includegraphics[width=10cm]{socrates-hemlock}
+            \includegraphics[width=14cm]{socrates-hemlock}
             \vfill
         \end{center}
     \end{titlepage}
@@ -244,7 +245,7 @@
     JavaScript provides \texttt{string} as a primitive type for dealing with text. All strings in 
     JavaScript are encoded using either UTF-16 or UCS-2. (UCS-2 is a text encoding form which is 
     extremely similar to UTF-16, but doesn't understand surrogate pair code points, which is almost
-    never a problem).
+    never a problem.)
     
     You just learned that JavaScript unifies integers and floats under numbers at a cost of 
     performance and for the sake of simplicity. With strings, JavaScript makes a similar 
@@ -330,8 +331,8 @@
     x["foo"]
     \end{verbatim}
     
-    At this point objects may feel significantly similar to a conventional dictionary collection;
-    string-keys map to values. This bracket-notation makes two big things possible. 
+    In light of this, objects may feel significantly similar to a conventional dictionary 
+    collection; string-keys map to values. This bracket-notation makes two big things possible. 
     
     \begin{enumerate}
         \item It allows you to access properties of an object dynamically, via a string variable. 
@@ -376,7 +377,7 @@
     
     \end{enumerate}
     
-    So far we've dealt with objects using the object literal syntax, but all objects can also be 
+    So far, we've constructed objects using the object literal syntax, but all objects can also be 
     created using another syntax which may be familiar to you: using the \texttt{new} operator and 
     the object constructor. Par example:
     
@@ -454,8 +455,8 @@
     the array literal, which achieves the same effect with less characters and no ambiguity.
     
     The elements of any array can be indexed using the same bracket notation for accessing 
-    properties of objects. The only difference being that instead of passing the \texttt{string} of 
-    the name of the property, we pass the inegral \texttt{number} of the element's zero-based index.
+    properties of objects. The difference is that instead of passing the \texttt{string} of 
+    the property name, we pass the inegral \texttt{number} of the element's zero-based index.
     For example, the following illustrates how to access the first and the twelfth element of an 
     array named \texttt{foo}.
     
@@ -472,10 +473,9 @@
     managing dates and times. JavaScript's DOM API (a Behemoth) provides a huge amount of built-in 
     objects to represent the various components of a webpage.
     
-    In the next chapter we'll learn about control structures and find that \emph{functions 
-    themselves} are buit-in objects. This is a big concept, and we'll devote a lot of pages to them,
-    but it means \texttt{function} is just another datatype. It can be stored to a variable or 
-    passed as an argument.
+    In the next few chapters we'll learn that \emph{functions themselves} are buit-in objects. This 
+    is a big concept, and we'll devote a lot of pages to them, but it means \texttt{function} is 
+    just another datatype. It can be stored to a variable or passed as an argument.
     
     For the sake of this preliminary look at the type system, we'll have to leave off a complete 
     investigation of these built-in object datatypes for later chapters. Each type has its own 
@@ -515,8 +515,12 @@
     However, in combination with whitespace-insensitivity, it can lead to ambiguities, especially 
     when placing multiple statements on the same line.
     
-    For these reasons (and more, as we'll discover) it's considered best-practice to always 
-    terminate statements with semicolons just as you would when writing in C or Java.
+    What we're calling ``optional semicolons'' is technically called ``automatic semicolon 
+    insertion'', meaning that JavaScript tries to guess where the semicolons would belong and adds 
+    them for you. In many cases JavaScript will guess wrong in such a way that the script will 
+    still parse, but will not behave in an expected manner. For this reason it's considered a
+    best-practice to always terminate statements with semicolons --- just as you would when writing 
+    in C or Java. 
     
     \section{Declaring and using Variables}
     The most basic way to declare a variable in JavaScript is with the \texttt{var} keyword. As an 
@@ -548,14 +552,14 @@
     \texttt{true} or \texttt{false}.
     
     In JavaScript, since our variables do not have datatypes when they're declared, they must be 
-    automatically assigned a default value which itself does not have a type. As stated in the 
-    chapter on the Type System, \texttt{undefined} is technically a primitive datatype of its own
-    in order to keep it seperate form all the others. 
+    automatically assigned a default value which itself does not have a type, and \texttt{undefined}
+    is this value.
     
-    What's more, \texttt{undefined} is what's sometimes called a \emph{Unit Type} in Computer Type 
-    Theory, meaning a type that can only house one value. Indeed the value \texttt{undefined} 
-    \emph{is its own datatype}, and the datatype \texttt{undefined} \emph{is its only possible 
-    value}.
+    As stated in the chapter on the Type System, \texttt{undefined} is technically a primitive 
+    datatype of its own in order to keep it seperate form all the others. What's more, 
+    \texttt{undefined} is what's sometimes called a \emph{Unit Type} in Computer Type Theory, 
+    meaning a type that can only house one value. Indeed the value \texttt{undefined} \emph{is its 
+    own datatype}, and the datatype \texttt{undefined} \emph{is its only possible value}.
     
     This may be confusing, but the point to take away from this is that when a variable's value is
     equal to \texttt{undefined}, you should interpret that it was never assigned a value. (Unless, 
@@ -597,12 +601,49 @@
     necessary. \texttt{delete} can also be useful to overcome browser defects that generate memory 
     leaks in the DOM API (such as Internet Explorer in some cases).
     
+    \subsection{A Note on Scoping}
+    You may encounter what is spoken of as an alternative way of defining variables. In most cases
+    you could omit the \texttt{var} keyword and the value will be accessible and assignable and 
+    function exactly as if you did use the keyword.
     
+    \begin{verbatim}
+    theAnswer = 42;
+    \end{verbatim}
     
+    In truth, this syntax is \emph{not} totally equivalent to declaring a variable using 
+    \texttt{var}, but it differs in terms of the scope in which the variable is created. We'll have 
+    to take a look at functions and scoping before we appreciate this difference, so we'll revisit 
+    this topic later.
     
+    \section{Operators}
+    JavaScript provides many of the operators common in C or Java. Interestingly, JavaScript treats
+    some things as operators which you may be used to as syntactical constructs in other languages.
+    In JavaScript, the comma is an operator. So is \texttt{new}.
     
+    \subsection{Precidence}
+    The following table shows the operator precedence for a few of the common operators in 
+    JavaScript. For a complete precedence table see the appendix.
     
+    \begin{tabular}{l|l|l|l}
+        Precedence & Order & Assoicativity & Operator \\ \hline
+        
+        1  & Unary & RTL & \texttt{new} \\ 
+        1  & Binary & LTR & \texttt{.} (dot-notation), \texttt{[]} (bracket-notation). \\
+        3  & Unary & & \texttt{++}, \texttt{--} \\
+        4  & Unary & & \texttt{!}, \texttt{~}, \texttt{+}, \texttt{-}, 
+            \texttt{typeof}, \texttt{void}, \texttt{delete} \\
+        5  & Binary & LTR & \texttt{*}, \texttt{/}, \texttt{\%} (modulus) \\
+        6  & Binary & LTR & \texttt{+}, \texttt{-} \\
+        8  & Binary & LTR & \texttt{<}, \texttt{<=}, \texttt{>}, \texttt{>=} \\
+        9  & Binary & LTR & \texttt{==}, \texttt{!=}, \texttt{===}, \texttt{!==} \\
+        13 & Binary & LTR & \texttt{\&\&} \\
+        14 & Binary & LTR & \texttt{\textpipe\textpipe} \\
+        15 & Ternary & RTL & \texttt{?:} \\
+        16 & Binary & RTL & \texttt{=}, \texttt{+=}, \texttt{-=}, \texttt{*=}, \texttt{/=}, 
+            \texttt{\%=} \\
+        17 & Binary & LTR & \texttt{,} (comma) \\
     
+    \end{tabular}
     
 \end{document}
 
