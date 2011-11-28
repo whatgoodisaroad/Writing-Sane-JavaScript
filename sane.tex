@@ -515,10 +515,30 @@
     However, in combination with whitespace-insensitivity, it can lead to ambiguities, especially 
     when placing multiple statements on the same line.
     
-    What we're calling ``optional semicolons'' is technically called ``automatic semicolon 
-    insertion'', meaning that JavaScript tries to guess where the semicolons would belong and adds 
-    them for you. In many cases JavaScript will guess wrong in such a way that the script will 
-    still parse, but will not behave in an expected manner. For this reason it's considered a
+    For example:
+    
+    \begin{verbatim}
+        x = 4
+        y = x + 5
+        
+        // Is equivalent to...
+        
+        x = 4;
+        y = x + 5;
+        
+        // However, with semicolons these statements could be on the same line.
+        // For example:
+        
+        x = 4; y = x + 5;
+        
+        // This would generate a syntax error if the first semicolon were omitted.
+        
+    \end{verbatim}
+    
+    This is frequently called ``optional semicolons'' but is technically called ``automatic 
+    semicolon insertion'', meaning that JavaScript tries to guess where the semicolons would belong 
+    and adds them for you. In many cases JavaScript will guess wrong in such a way that the script 
+    will still parse, but will not behave in an expected manner. For this reason it's considered a
     best-practice to always terminate statements with semicolons --- just as you would when writing 
     in C or Java. 
     
@@ -537,7 +557,7 @@
     This is because JavaScript uses a \emph{dynamic type system} --- meaning, a variable can house a 
     value of \emph{any datatype}. The same variable that stores a \texttt{number} could be used to 
     store an \texttt{object} later on. A variable that stores a \texttt{boolean}, could be used to 
-    store a \texttt{string} of any length!
+    store a \texttt{string} of any length.
     
     \subsection{\texttt{undefined}: The Universal Default Value}
     
@@ -552,8 +572,8 @@
     \texttt{true} or \texttt{false}.
     
     In JavaScript, since our variables do not have datatypes when they're declared, they must be 
-    automatically assigned a default value which itself does not have a type, and \texttt{undefined}
-    is this value.
+    automatically assigned a default value \emph{which itself does not have a type}, and 
+    \texttt{undefined} is this value.
     
     As stated in the chapter on the Type System, \texttt{undefined} is technically a primitive 
     datatype of its own in order to keep it seperate form all the others. What's more, 
@@ -563,7 +583,7 @@
     
     This may be confusing, but the point to take away from this is that when a variable's value is
     equal to \texttt{undefined}, you should interpret that it was never assigned a value. (Unless, 
-    for some reason, it was explicitly defined the value \texttt{undefined}.)
+    for some reason, it was explicitly given the value \texttt{undefined}.)
     
     We'll learn more about \texttt{undefined} (and how its subtly different from \texttt{null}) as 
     we progress through the language.
@@ -624,6 +644,7 @@
     The following table shows the operator precedence for a few of the common operators in 
     JavaScript. For a complete precedence table see the appendix.
     
+    \vspace{10pt}
     \begin{tabular}{l|l|l|l}
         Precedence & Order & Assoicativity & Operator \\ \hline
         
@@ -643,16 +664,73 @@
             \texttt{\%=} \\
         17 & Binary & LTR & \texttt{,} (comma) \\
     \end{tabular}
+    \vspace{10pt}
+    
+    These precidence rules mean that the expression \texttt{3*x+1} is equivalent to \texttt{(3*x)+1}
+    and that \texttt{a || b \&\& c || d} is equivalent to \texttt{a || ((b \&\& c) || d)}.
+    
+    JavaScript provides no mechanism for overloading operators.
     
     \section{Arithmetic}
-    TODO:
+    On the surface, arithmetic in JavaScript works very much like it does in other languages. 
+    However, there are some quirks, niceties and pitfalls to be aware of.
+    
+    In C you need to worry about dividing integers, for example the C expression \texttt{1/2} will 
+    result in \texttt{0} because the arithmetic operation was in integer-mode and C did not know to
+    promote the result into a float. However, in JavaScript, there is no integer type and 
+    consequently there is no integer-mode. The same expression in JavaScript would yield 
+    \texttt{0.5}.
+    
+    The division operator in JavaScript is transfinite, meaning that a division by zero such as
+    \texttt{1/0} results in the \texttt{Infinity} value rather than throw an exception or result in 
+    \texttt{NaN}. A negative infinity is also possible when the numerator is negative. On the other 
+    hand, the expression \texttt{0/0} is treated as nonsense, and will result in \texttt{NaN}. In 
+    the chapter on the \texttt{Number} datatype, we'll look closely at these special values.
     
     \section{Control Structures}
-    TODO:
-    
+    JavaScript provides control structures to allow you to program loops and conditional blocks.
+	
     \subsection{The \texttt{if} Control Structure}
-    TODO:
+    The \texttt{if} control structure is used to conditionally execute a statement or block of 
+	statements based on a boolean expression.
+	
+	For example:
+	
+	\begin{verbatim}
+		if (true) {
+			x = 4;
+		}
+		
+		if (false) {
+			x = 5;
+		}
+		
+		// x has been set to 4.
+	\end{verbatim}
     
+	It is also possible to specify \texttt{else} and \texttt{else if} conditions.
+	
+	\begin{verbatim}
+		var n = 4;
+		
+		if (n > 5) {
+			x = 1;
+		}
+		
+		else if (n <= 5 && n < 2) {
+			x = 2;
+		}
+		
+		else {
+			x = 3;
+		}
+		
+		// x has been set to 2 because it is between 2 and 5.
+		// The middle (else-if) condition was executed.
+	\end{verbatim}
+	
+	The curly braces surrounding the condition block are optional. For example you could 
+	
     \subsubsection{A Note on Truthiness}
     Todo:
     
@@ -751,6 +829,46 @@
     
     \section{A Case Study in Object-Oriented Prorgamming}
     TODO:
+    
+    \part{The Type System}
+    
+    \chapter{Truthy Values and the \texttt{boolean} Datatype}
+    
+    \section{\texttt{true} and \texttt{false} Vs. Truthy and Falsy}
+    
+    \section{The Truth of Expressions}
+    
+    \section{A Case Study in Truth Values}
+    
+    \chapter{The \texttt{number} Datatype}
+    
+    \section{Encoding and Range}
+    
+    \section{Special Numbers}
+    
+    \subsection{$\pm$ Zero}
+    
+    \subsection{$\pm$ Infinity}
+    
+    \subsection{\texttt{NaN}}
+    
+    \subsection{The \texttt{Math} Object}
+    
+    \section{\texttt{number}-Valued Expressions}
+    
+    \section{A Case Study in the \texttt{number} Datatype}
+    
+    \chapter{The \texttt{string} Datatype}
+    
+    \section{Encoding}
+    
+    \section{String Methods}
+    
+    \subsection{The \texttt{fromCharCode()} Method}
+    
+    \subsection{The \texttt{charAt(pos)} and \texttt{charCodeAt(pos)} Methods}
+    
+    \subsection{The \texttt{concat(string1, ..., stringN)} Method}
     
 \end{document}
 
