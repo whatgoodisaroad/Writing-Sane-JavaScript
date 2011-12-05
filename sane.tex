@@ -37,11 +37,11 @@
         --- Carl Sagan, \emph{Contact}
     \end{flushright}
     \vspace{1.2cm}
-	
-	\begin{quote}
+    
+    \begin{quote}
         \emph{
             More good code has been written in languages denounced as bad than in languages 
-			proclaimed wonderful --- much more.
+            proclaimed wonderful --- much more.
         }
     \end{quote}
     \begin{flushright}
@@ -139,8 +139,8 @@
     
     \part{The Language}
     \chapter{The Type System}
-	
-	\section{Overview}
+    
+    \section{Overview}
     The first hurdle in mastering JavaScript is a complete understanding of the type system. In this 
     chapter we will have a first look at each of the fundamental datatypes in JavaScript. We examine 
     the type system before presenting any code examples, so this chapter may seem a little dry. Let 
@@ -689,50 +689,145 @@
     
     \section{Control Structures}
     JavaScript provides control structures to allow you to program loops and conditional blocks.
-	
+    
     \subsection{The \texttt{if} Control Structure}
     The \texttt{if} control structure is used to conditionally execute a statement or block of 
-	statements based on a boolean expression.
-	
-	For example:
-	
-	\begin{verbatim}
-		if (true) {
-			x = 4;
-		}
-		
-		if (false) {
-			x = 5;
-		}
-		
-		// x has been set to 4.
-	\end{verbatim}
+    statements based on an expression.
     
-	It is also possible to specify \texttt{else} and \texttt{else if} conditions.
-	
-	\begin{verbatim}
-		var n = 4;
-		
-		if (n > 5) {
-			x = 1;
-		}
-		
-		else if (n <= 5 && n < 2) {
-			x = 2;
-		}
-		
-		else {
-			x = 3;
-		}
-		
-		// x has been set to 2 because it is between 2 and 5.
-		// The middle (else-if) condition was executed.
-	\end{verbatim}
-	
-	The curly braces surrounding the condition block are optional. For example you could 
-	
+    For example:
+    
+    \begin{verbatim}
+        if (true) {
+            x = 4;
+        }
+        
+        if (false) {
+            x = 5;
+        }
+        
+        // x has been set to 4.
+    \end{verbatim}
+    
+    It is also possible to specify \texttt{else} and \texttt{else if} conditions.
+    
+    \begin{verbatim}
+        var n = 4;
+        
+        if (n > 5) {
+            x = 1;
+        }
+        
+        else if (n <= 5 && n < 2) {
+            x = 2;
+        }
+        
+        else {
+            x = 3;
+        }
+        
+        // x has been set to 2 because it is between 2 and 5.
+        // The middle (else-if) condition was executed.
+    \end{verbatim}
+    
+    As you can see, this syntax is the same as in C and Java. In these cases one could omit the 
+    curly-braces for these blocks if they only contain one statement. For example, the following 
+    code is equivalent.
+    
+    \begin{verbatim}
+        var n = 4;
+        if (n > 5)
+            x = 1;
+        else if (n <= 5 && n < 2)
+            x = 2;
+        else
+            x = 3;
+    \end{verbatim}
+    
+    However, in almost all languages and coding style guides, this practice is considered bad. It is 
+    recommended that you always use curly-braces to delimit your blocks. Historically, for most 
+    languages and contexts, this recommendation is motivated by the fact that it is easier to read 
+    code with the braces, and it is harder to make certain errors. In JavaScript, however, there is 
+    the added motivation that some code optimizers work better when the braces are present.
+    
     \subsubsection{A Note on Truthiness}
-    Todo:
+    The \texttt{if} control structure uses an expression to determine whether or not to execute a 
+    block. However, unlike in most languages, the expression \emph{need not be boolean}. Moreover, 
+    the \texttt{if} control structure can use an expression of any type, and instead of checking 
+    whether it evaluates to \texttt{true} or \texttt{false}, it checks whether it is \emph{truthy}
+    or \emph{falsy}.
+    
+    Truthiness is a generalization of the truth value to non boolean datatypes. This feature of the 
+    JavaScript language is frequently maligned and often used in arguments that JavaScript is 
+    inconsistent. However, the rules of truthiness are quite simple and unambiguous. Usually when an
+    expression evaluates to an unexpected truthiness value, it is the result of subtle datatype 
+    coersion that takes place before the truthiness is evaluated. We'll look at these confusing 
+    expressions later.
+    
+    The rules of truthiness are as follows:
+    
+    \vspace{10pt}
+    \begin{tabular}{l|l}
+        Expression Type     & Truthiness \\ \hline
+        \texttt{undefined}  & falsy \\
+        \texttt{null}       & falsy \\
+        \texttt{boolean}    & If the boolean is \texttt{true} then truthy, and if \texttt{false} 
+            then falsy. \\
+        \texttt{number}     & If the number is $+0, -0$ or \texttt{NaN}, then falsy. Truthy 
+            otherwise. \\
+        \texttt{string}     & If the string is empty (length is 0), then falsy. Truthy otherwise. \\
+        \texttt{object}     & truthy \\
+    \end{tabular}
+    \vspace{10pt}
+    
+    This means that the following \texttt{if} blocks never execute.
+    
+    \begin{verbatim}
+        if (false)     { /* never    */ }
+        if (undefined) { /* ever     */ }
+        if (null)      { /* ever     */ }
+        if ("")        { /* ever     */ }
+        if (0)         { /* ever     */ }
+        if (0/0)       { /* executed */ }
+    \end{verbatim}
+    
+    And that the following blocks always execute.
+    
+    \begin{verbatim}
+        if (true)    { /* executed */ }
+        if (1)       { /* each     */ }
+        if (1/0)     { /* and      */ }
+        if ("hello") { /* every    */ }
+        if ({})      { /* time     */ }
+    \end{verbatim}
+    
+    \subsubsection{A Note on K\&R Style}
+    Another contentious aspect of coding style is whether to put opening curly-braces on the same 
+    line as the control structure definition or on a newline after it. These two styles are 
+    sometimes called K\&R style and BSD style respectively. As an illustrative example:
+    
+    \begin{verbatim}
+        if (true) {
+            // This block is K&R style. 
+            // The open-curly brace is on the same line as the "if".
+            
+            // The K&R stands for Kerrighan and Richie because this style stems from their famous 
+            // book titled "The C Programming Language".
+        }
+        
+        if (true)
+        {
+            // This block is BSD style; sometimes called Allman style.
+            // The open-curly brace is on a newline after the "if".
+            
+            // The BSD stands for the "Berkley Software Distribution" UNIX operating system. 
+            // Eric Allman pioneered this style and also wrote a great deal of BSD.
+        }
+    \end{verbatim}
+    
+    Both of these styles are valid in JavaScript and work equally well in every way \emph{except
+    one}. As we'll see in the chapter on functions, return statements with object literals 
+    \emph{will not work correctly} when using BSD style. Consequently, for the sake of consistency, 
+    most JavaScript code is written using K\&R style.
     
     \subsection{The \texttt{switch} Control Structure}
     TODO:
@@ -765,6 +860,9 @@
     TODO:
     
     \subsection{Declaring Functions}
+    TODO:
+    
+    \subsection{The \texttt{return} Statment}
     TODO:
     
     \subsection{Creating Function Objects}
